@@ -13,7 +13,7 @@ from src.operators import (
     QCOperator,
     YardOperator,
 )
-from src.plan.engine import PlanningEngine
+from src.plan.planning_engine import PlanningEngine
 
 
 class Simulation:

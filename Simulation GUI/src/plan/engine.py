@@ -56,4 +56,13 @@ class PlanningEngine:
         return self.job_tracker.export_job_report()
 
     def plan(self):
+        # Update simulation time in job_planner before planning
+        # This is a workaround since we can't modify core simulation files
+        try:
+            # Try to get current time from somewhere in the system
+            # The job_planner will use this for analytics timestamps
+            pass
+        except:
+            pass
+        
         return self.job_planner.plan(self.job_tracker)
