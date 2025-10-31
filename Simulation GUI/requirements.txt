@@ -1,0 +1,40 @@
+# PSA Terminal Simulation - Full Project Requirements
+# Supports: Dashboard (PyQt5), CLI, GUI (pygame-zero), and Analytics
+# Compatible with Python 3.10+
+
+# ==========================================
+# Core Simulation & Analytics
+# ==========================================
+pandas>=2.0.0
+numpy>=1.24.0
+logzero>=1.7.0
+colorama>=0.4.6
+
+# ==========================================
+# Dashboard (PyQt5 Real-time Analytics)
+# ==========================================
+PyQt5>=5.15.0
+PyQtChart>=5.15.0
+
+# ==========================================
+# GUI (pygame-zero visualization)
+# ==========================================
+pgzero>=1.2.0
+pygame>=2.0.0
+
+# ==========================================
+# Data Processing & Export
+# ==========================================
+openpyxl>=3.0.0
+python-dateutil>=2.8.0
+pytz>=2021.1
+
+# ==========================================
+# Optional: Development & Testing Tools
+# ==========================================
+# Uncomment if needed for development:
+# black>=23.0.0
+# isort>=5.12.0
+# invoke>=2.0.0
+# notebook>=7.0.0
+# ipykernel>=6.20.0

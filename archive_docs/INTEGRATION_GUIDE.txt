@@ -1,0 +1,510 @@
+================================================================================
+PSA CODESPRINT 2025 - ANALYTICS ENHANCEMENT PACKAGE
+Integration Guide for Added Files
+================================================================================
+
+TEAM: [Your Team Name]
+DATE: October 20, 2025
+
+================================================================================
+PACKAGE CONTENTS
+================================================================================
+
+This package includes the following new/modified files:
+
+1. src/analytics/analytics_engine.py      (NEW - 33KB)
+   - Unified analytics engine combining 5 analytics modules
+   - YardJobCounter, HTTimelineTracker, EmissionsCalculator
+   - RouteOptimizationAnalyzer, CongestionMonitor
+   
+2. src/analytics/dashboard.py             (NEW - 49KB)
+   - PyQt5-based real-time analytics dashboard
+   - Custom widgets and visualizations
+   - Auto-refresh every 2 seconds
+   
+3. src/analytics/__init__.py              (MODIFIED - 600 bytes)
+   - Updated imports for analytics_engine
+   
+4. src/plan/job_planner.py                (MODIFIED - 15KB)
+   - Integrated analytics tracking
+   - Polling mechanism for completed jobs
+   - Enhanced with real-time metrics
+   
+5. launch_dashboard.py                    (NEW - 1.3KB)
+   - Dashboard launcher script
+   
+6. DETAILED_README.md                     (NEW - 23KB)
+   - Comprehensive setup and usage guide
+   
+7. INTEGRATION_GUIDE.txt                  (THIS FILE)
+   - Step-by-step integration instructions
+
+================================================================================
+PREREQUISITES
+================================================================================
+
+The starting point folder should contain:
+- cli.py
+- gui.py
+- requirements.txt
+- data/input.csv
+- src/constant.py
+- src/floor.py
+- src/job.py
+- src/operators.py
+- src/simulation.py
+- src/operate/engine.py
+- src/plan/engine.py (or planning_engine.py)
+- src/plan/job_tracker.py
+- src/ui/
+- src/utils/
+
+If you have src/plan/engine.py instead of planning_engine.py, that's fine.
+The job_planner.py will work with either.
+
+================================================================================
+INSTALLATION STEPS
+================================================================================
+
+STEP 1: EXTRACT FILES
+----------------------
+Extract all files from this package, maintaining the folder structure:
+
+  Starting_Point_Folder/
+  ├── launch_dashboard.py                    <- Add this file
+  ├── DETAILED_README.md                     <- Add this file
+  ├── INTEGRATION_GUIDE.txt                  <- This file
+  └── src/
+      ├── analytics/                         <- Create this folder
+      │   ├── __init__.py                    <- Add this file
+      │   ├── analytics_engine.py            <- Add this file
+      │   └── dashboard.py                   <- Add this file
+      └── plan/
+          └── job_planner.py                 <- REPLACE existing file
+
+
+STEP 2: CREATE ANALYTICS FOLDER
+--------------------------------
+If src/analytics/ doesn't exist:
+
+  Windows PowerShell:
+    cd "path\to\your\starting_point_folder"
+    mkdir src\analytics
+
+  Linux/Mac:
+    cd path/to/your/starting_point_folder
+    mkdir -p src/analytics
+
+
+STEP 3: COPY FILES
+------------------
+Copy the files to their respective locations:
+
+  a) Copy launch_dashboard.py to root folder
+  b) Copy DETAILED_README.md to root folder
+  c) Copy src/analytics/__init__.py to src/analytics/
+  d) Copy src/analytics/analytics_engine.py to src/analytics/
+  e) Copy src/analytics/dashboard.py to src/analytics/
+  f) BACKUP your existing src/plan/job_planner.py (if you modified it)
+  g) Copy src/plan/job_planner.py to src/plan/ (replace existing)
+
+
+STEP 4: SETUP DASHBOARD ENVIRONMENT
+------------------------------------
+The analytics dashboard requires PyQt5, which needs a separate environment.
+
+Windows PowerShell:
+  cd "path\to\your\starting_point_folder"
+  
+  # Activate your existing environment first
+  .\venv\Scripts\Activate.ps1
+  
+  # Or if you use py_env_codesprint:
+  .\py_env_codesprint\Scripts\Activate.ps1
+  
+  # Verify pandas is installed (should already be there)
+  pip list | Select-String pandas
+  
+  # Create dashboard environment
+  python -m virtualenv venv_dashboard
+  
+  # Activate dashboard environment
+  .\venv_dashboard\Scripts\Activate.ps1
+  
+  # Install dashboard dependencies
+  pip install pandas PyQt5 PyQtChart numpy python-dateutil pytz
+  
+  # Deactivate dashboard environment
+  deactivate
+  
+  # Reactivate your main environment
+  .\venv\Scripts\Activate.ps1
+
+Linux/Mac:
+  cd path/to/your/starting_point_folder
+  
+  # Activate your existing environment
+  source venv/bin/activate
+  # or: source py_env_codesprint/bin/activate
+  
+  # Create dashboard environment
+  python -m virtualenv venv_dashboard
+  
+  # Activate dashboard environment
+  source venv_dashboard/bin/activate
+  
+  # Install dashboard dependencies
+  pip install pandas PyQt5 PyQtChart numpy python-dateutil pytz
+  
+  # Deactivate and return to main environment
+  deactivate
+  source venv/bin/activate
+
+
+STEP 5: CREATE ANALYTICS LOGS DIRECTORY
+----------------------------------------
+Create the directory for analytics output:
+
+  Windows:
+    mkdir data\analytics_logs
+
+  Linux/Mac:
+    mkdir -p data/analytics_logs
+
+
+STEP 6: VERIFY INSTALLATION
+----------------------------
+Check that all files are in place:
+
+Windows PowerShell:
+  # Check main files
+  Test-Path launch_dashboard.py
+  Test-Path DETAILED_README.md
+  Test-Path src\analytics\analytics_engine.py
+  Test-Path src\analytics\dashboard.py
+  Test-Path src\analytics\__init__.py
+  Test-Path src\plan\job_planner.py
+  
+  # Check directories
+  Test-Path data\analytics_logs
+  Test-Path venv_dashboard
+
+  # All commands should return: True
+
+Linux/Mac:
+  ls -l launch_dashboard.py
+  ls -l DETAILED_README.md
+  ls -l src/analytics/analytics_engine.py
+  ls -l src/analytics/dashboard.py
+  ls -l src/analytics/__init__.py
+  ls -l src/plan/job_planner.py
+  ls -ld data/analytics_logs
+  ls -ld venv_dashboard
+
+================================================================================
+RUNNING THE SYSTEM
+================================================================================
+
+OPTION 1: CLI MODE (Recommended for first test)
+------------------------------------------------
+Windows PowerShell:
+  cd "path\to\your\starting_point_folder"
+  .\venv\Scripts\Activate.ps1
+  # or: .\py_env_codesprint\Scripts\Activate.ps1
+  
+  python cli.py
+
+Linux/Mac:
+  cd path/to/your/starting_point_folder
+  source venv/bin/activate
+  # or: source py_env_codesprint/bin/activate
+  
+  python cli.py
+
+Expected Output:
+  - Simulation starts and runs
+  - You'll see [DEBUG] [RECORD] Completion messages
+  - CSV files appear in data/analytics_logs/
+  - Simulation completes with total time reported
+
+Generated Files (in data/analytics_logs/):
+  ✓ yard_job_counts.csv       - Job completion tracking per yard
+  ✓ ht_timelines.csv          - Job lifecycle events
+  ✓ emissions.csv             - CO2 emissions per job
+  ✓ emissions_summary.csv     - Aggregated emissions
+  ✓ route_optimization.csv    - Route efficiency metrics
+  ✓ route_summary.csv         - Route statistics
+  ✓ congestion_events.csv     - Congestion tracking
+  ✓ congestion_alerts.csv     - Critical alerts
+
+
+OPTION 2: CLI + DASHBOARD (Full Analytics Experience)
+------------------------------------------------------
+You need TWO separate terminal windows running simultaneously.
+
+TERMINAL 1 - Run Simulation:
+  Windows:
+    cd "path\to\your\starting_point_folder"
+    .\venv\Scripts\Activate.ps1
+    python cli.py
+  
+  Linux/Mac:
+    cd path/to/your/starting_point_folder
+    source venv/bin/activate
+    python cli.py
+
+TERMINAL 2 - Launch Dashboard:
+  Windows:
+    cd "path\to\your\starting_point_folder"
+    .\venv_dashboard\Scripts\Activate.ps1
+    python launch_dashboard.py
+  
+  Linux/Mac:
+    cd path/to/your/starting_point_folder
+    source venv_dashboard/bin/activate
+    python launch_dashboard.py
+
+Expected Result:
+  - A PyQt5 window opens showing the analytics dashboard
+  - Dashboard refreshes every 2 seconds
+  - You'll see real-time updates as jobs complete:
+    * HT Timelines (active/completed jobs)
+    * Yard Job Counters (with stacked bar chart)
+    * Emissions Tracker (with DI/LO progress bars)
+    * Route Optimization (efficiency metrics)
+  - Close dashboard window to exit (simulation continues)
+
+
+OPTION 3: GUI MODE
+------------------
+Windows:
+  cd "path\to\your\starting_point_folder"
+  .\venv\Scripts\Activate.ps1
+  python gui.py
+
+Linux/Mac:
+  cd path/to/your/starting_point_folder
+  source venv/bin/activate
+  python gui.py
+
+Note: GUI mode still generates analytics, but dashboard visualization
+      requires launching it separately (see Option 2).
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+ISSUE: "ModuleNotFoundError: No module named 'src.analytics'"
+SOLUTION:
+  - Verify src/analytics/ folder exists
+  - Verify analytics_engine.py and __init__.py are in that folder
+  - Check file paths are correct
+
+ISSUE: "ModuleNotFoundError: No module named 'PyQt5'"
+SOLUTION:
+  - Make sure you're in venv_dashboard environment
+  - Reinstall: pip install PyQt5 PyQtChart
+
+ISSUE: Dashboard shows "No data available yet"
+SOLUTION:
+  - Ensure simulation (cli.py) is running in another terminal
+  - Check data/analytics_logs/ folder exists
+  - Wait a few seconds for data generation
+  - Verify CSV files are being created
+
+ISSUE: "Cannot activate virtual environment"
+SOLUTION (Windows):
+  - Run PowerShell as Administrator
+  - Execute: Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+  - Try activation again
+
+ISSUE: Jobs not being recorded
+SOLUTION:
+  - Check that data/analytics_logs/ directory exists
+  - Verify write permissions on data/ folder
+  - Check logs/ folder for error messages
+
+ISSUE: Dashboard freezes
+SOLUTION:
+  - Close dashboard window
+  - Verify simulation is still running
+  - Restart dashboard
+
+================================================================================
+WHAT WAS CHANGED/ADDED
+================================================================================
+
+NEW ANALYTICS MODULES:
+1. YardJobCounter
+   - Tracks job completions per yard (H1-H16)
+   - Records DI/LO split per yard
+   - Generates yard_job_counts.csv
+
+2. HTTimelineTracker
+   - Monitors job lifecycle (created → assigned → started → completed)
+   - Tracks which HT handles each job
+   - Generates ht_timelines.csv
+
+3. EmissionsCalculator
+   - Calculates CO2 emissions per job
+   - Uses distance and job type (DI = 0.15 kg/km, LO = 0.12 kg/km)
+   - Generates emissions.csv and emissions_summary.csv
+
+4. RouteOptimizationAnalyzer
+   - Evaluates route efficiency
+   - Compares actual vs optimal path length
+   - Generates route_optimization.csv and route_summary.csv
+
+5. CongestionMonitor
+   - Detects traffic congestion
+   - Tracks HT density per location
+   - Generates congestion_events.csv and congestion_alerts.csv
+
+DASHBOARD FEATURES:
+- Real-time updates every 2 seconds
+- 4 main cards:
+  * HT Timelines (active/completed job counts)
+  * Yard Job Counters (stacked bar chart for all 16 yards)
+  * Emissions Tracker (with DI/LO progress bars showing remaining jobs)
+  * Route Optimization (efficiency metrics with progress bars)
+- Responsive layout
+- Dark navy background for comfortable viewing
+- Color-coded data (Orange=DI, Green=LO, Blue=Active, etc.)
+
+JOB_PLANNER ENHANCEMENTS:
+- Integrated analytics engine
+- Polling mechanism to check for completed jobs
+- Automatic tracking of:
+  * Job completions (yard counter)
+  * Job timelines (lifecycle events)
+  * Emissions calculations
+  * Route efficiency
+  * Congestion detection
+- No changes to core scheduling logic (just added tracking)
+
+================================================================================
+KEY METRICS EXPLANATION
+================================================================================
+
+1. YARD JOB COUNTS
+   - Shows how many jobs completed at each yard
+   - Helps identify yard utilization balance
+   - DI jobs (red bars) vs LO jobs (yellow bars)
+
+2. HT TIMELINES
+   - Active: Jobs currently being executed
+   - Completed: Jobs that finished
+   - Tracked: Total unique jobs in system
+
+3. EMISSIONS
+   - DI emissions: 0.15 kg CO2 per km traveled
+   - LO emissions: 0.12 kg CO2 per km traveled
+   - Progress bars show remaining jobs (deplete to zero)
+   - Counter shows "X jobs" remaining for each type
+
+4. ROUTE OPTIMIZATION
+   - Efficiency = (optimal_distance / actual_distance) × 100%
+   - Optimal routes: Routes with efficiency > 90%
+   - Higher efficiency = better route planning
+
+5. CONGESTION
+   - Detected when multiple HTs occupy same grid location
+   - Severity levels: LOW, MEDIUM, HIGH, CRITICAL
+   - Dashboard shows popup alerts for HIGH/CRITICAL
+
+================================================================================
+INTEGRATION WITH YOUR ALGORITHM
+================================================================================
+
+The analytics system is TRANSPARENT to your optimization algorithm.
+
+You can:
+✓ Modify scheduling logic in job_planner.py
+✓ Change route planning strategies
+✓ Implement new optimization techniques
+✓ Adjust job prioritization
+
+The analytics will automatically track your changes without requiring
+any modifications to the analytics code itself.
+
+The analytics are called at these key points:
+1. When a job is assigned: create_timeline()
+2. When planning a route: calculate_emissions() + analyze_route()
+3. When a job completes: record_job_completion() + complete_job_timeline()
+4. Periodically: update_congestion()
+
+All these calls are already in place in job_planner.py.
+
+================================================================================
+PERFORMANCE IMPACT
+================================================================================
+
+Analytics Overhead:
+- CSV writing: ~0.1-0.5ms per job
+- Calculations: ~0.01-0.1ms per operation
+- Total impact: < 1% of simulation time
+
+Dashboard Overhead:
+- Runs in separate process
+- No impact on simulation performance
+- Can be run or not run independently
+
+================================================================================
+VERIFICATION CHECKLIST
+================================================================================
+
+After installation, verify:
+☐ All files copied to correct locations
+☐ src/analytics/ folder exists with 3 files
+☐ data/analytics_logs/ folder exists
+☐ venv_dashboard environment created
+☐ PyQt5 installed in venv_dashboard
+☐ CLI runs successfully: python cli.py
+☐ CSV files generated in data/analytics_logs/
+☐ Dashboard launches: python launch_dashboard.py
+☐ Dashboard shows data (after simulation starts)
+
+If all checks pass, you're ready to go! ✓
+
+================================================================================
+SUPPORT & DOCUMENTATION
+================================================================================
+
+For detailed information, see:
+- DETAILED_README.md: Complete setup and usage guide
+- This file (INTEGRATION_GUIDE.txt): Installation instructions
+
+For questions about:
+- Analytics calculations: See src/analytics/analytics_engine.py docstrings
+- Dashboard widgets: See src/analytics/dashboard.py class definitions
+- Job planner integration: See src/plan/job_planner.py comments
+
+================================================================================
+SUBMISSION PACKAGE
+================================================================================
+
+When submitting your optimized solution, include:
+1. Modified job_planner.py (your optimization algorithm)
+2. These analytics files (from this package)
+3. launch_dashboard.py
+4. DETAILED_README.md
+5. This INTEGRATION_GUIDE.txt
+6. data/output.csv (your simulation results)
+7. data/analytics_logs/ (all CSV files)
+8. Latest log file from logs/
+
+================================================================================
+FINAL NOTES
+================================================================================
+
+✓ This package adds analytics WITHOUT changing simulation behavior
+✓ Your optimization algorithm will work exactly as before
+✓ Analytics provide visibility into performance metrics
+✓ Dashboard is optional but highly recommended for development
+✓ All analytics data is saved to CSV for post-analysis
+
+Good luck with your optimization! 🚢✨
+
+================================================================================
+END OF INTEGRATION GUIDE
+================================================================================

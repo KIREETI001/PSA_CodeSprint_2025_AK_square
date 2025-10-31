@@ -1,0 +1,3 @@
+timestamp,congestion_type,location,severity,available_HTs,pending_jobs,strategy,description
+2025-10-20 00:58:30,QC_QUEUE,GLOBAL,HIGH,80,80,conservative,Large job queue detected (80 jobs)
+2025-10-20 00:58:30,QC_QUEUE,GLOBAL,HIGH,70,70,aggressive,Large job queue detected (70 jobs)
