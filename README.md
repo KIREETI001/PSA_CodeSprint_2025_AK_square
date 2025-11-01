@@ -49,7 +49,7 @@ Makespan difference = 1167610 - 1117280 = 50300 (4.31% improvement)
 Emission Levels: Minimize CO2 emissions tracked in kg.
 
 ## Conclusion
-Our project demonstrates the power of combining real-time data analytics with AI-driven optimization algorithms in port operations. We believe our solution can significantly enhance operational efficiency and sustainability in port management systems.
+Our project demonstrates the power of combining real-time data analytics with AI-driven optimization algorithms in port operations. We believe our solution can significantly enhance operational efficiency and sustainability in port management systems
 
 ## Acknowledgments
 We would like to thank the PSA CodeSprint organizers for this opportunity and the Open Source community for providing resources that made our project possible.
