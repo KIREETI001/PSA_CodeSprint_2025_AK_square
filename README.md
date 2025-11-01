@@ -36,7 +36,7 @@ Save all changes.
 - On the first terminal run "python dashboard.py"
 - On the second terminal run "python cli.py" (For Performance Testing) or "python gui.py" (Recommended for visual assessment)
 
-## And wait for the magic to happen. 
+## And wait for the magic to happen! 
 - A folder called analytics_logs will be created under the data folder where all relevant logs can be viewed. IT is safe to delete this folder after each run as each run will append the results in this folder and extract new runtime data for the live dashboard to run. 
 
 
@@ -57,6 +57,6 @@ We would like to thank the PSA CodeSprint organizers for this opportunity and th
 
 For any questions or comments, please feel free to reach out!
 
-Contact: [KIREETI001@e.ntu.edu.sg]
+Contact: [KIREETI001@e.ntu.edu.sg] [al0003an@e.ntu.edu.sg]
 GitHub: [https://github.com/KIREETI001/PSA_CodeSprint_2025_AK_square]
 Demo Link: [(https://youtu.be/lpfCQBCMPIw)]
